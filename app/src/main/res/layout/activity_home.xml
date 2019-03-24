@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/desc_parent"
+            app:srcCompat="@drawable/parent" />
+
+        <ImageButton
+            android:id="@+id/child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/desc_child"
+            app:srcCompat="@drawable/child" />
+
+    </TableRow>
+
 </android.support.constraint.ConstraintLayout>
