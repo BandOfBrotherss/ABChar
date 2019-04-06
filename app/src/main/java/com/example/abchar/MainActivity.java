@@ -34,14 +34,18 @@ import com.google.firebase.auth.PlayGamesAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.example.abchar.ChooserActivity;
+import com.example.abchar.LoginActivities.ChooserActivity;
+
+import org.opencv.android.OpenCVLoader;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.example.abchar.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
