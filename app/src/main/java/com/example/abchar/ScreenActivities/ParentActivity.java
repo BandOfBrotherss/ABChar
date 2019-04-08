@@ -1,4 +1,4 @@
-package com.example.abchar;
+package com.example.abchar.ScreenActivities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.abchar.ScreenActivities.AddChildActivity;
+import com.example.abchar.ChildAdapter;
+import com.example.abchar.FireModel;
+import com.example.abchar.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
