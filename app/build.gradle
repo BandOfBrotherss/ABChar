@@ -15,7 +15,7 @@ android {
         resValue 'string', "fb_login_protocol", ABChar_fb_login_protocol
         resValue 'string', "fb_app_id", ABChar_fb_app_id
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a" , "x86"
         }
 
     }
