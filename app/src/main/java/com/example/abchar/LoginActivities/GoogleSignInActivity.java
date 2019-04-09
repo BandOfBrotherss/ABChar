@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.abchar.LoginActivities.BaseActivity;
 import com.example.abchar.R;
+import com.example.abchar.ScreenActivities.HomeActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -136,6 +137,8 @@ public class GoogleSignInActivity extends BaseActivity implements
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Intent i = new Intent(GoogleSignInActivity.this, HomeActivity.class);
+                            startActivity(i);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

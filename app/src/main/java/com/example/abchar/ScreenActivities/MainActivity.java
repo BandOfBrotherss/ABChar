@@ -9,8 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.abchar.LoginActivities.EmailPasswordActivity;
+import com.example.abchar.LoginActivities.FacebookLoginActivity;
+import com.example.abchar.LoginActivities.GoogleSignInActivity;
+import com.example.abchar.LoginActivities.TwitterLoginActivity;
 import com.example.abchar.R;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -51,13 +56,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
-        final Button butt = findViewById(R.id.button2);
-        butt.setOnClickListener(new View.OnClickListener() {
+        final ImageButton face_button = findViewById(R.id.facebook_button);
+        final ImageButton twitter_button = findViewById(R.id.twitter_button);
+        final ImageButton google_button = findViewById(R.id.google_button);
+        final ImageButton mail_button = findViewById(R.id.mail_button);
+        face_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                 Intent i = new Intent(MainActivity.this,ChooserActivity.class);
+                 Intent i = new Intent(MainActivity.this, FacebookLoginActivity.class);
                  startActivity(i);
+
+            }
+        });
+        twitter_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, TwitterLoginActivity.class);
+                startActivity(i);
+
+            }
+        });
+        google_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, GoogleSignInActivity.class);
+                startActivity(i);
+
+            }
+        });
+        mail_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, EmailPasswordActivity.class);
+                startActivity(i);
 
             }
         });
