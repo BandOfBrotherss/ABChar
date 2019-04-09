@@ -20,6 +20,8 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.aruco.Aruco;
 import org.opencv.aruco.DetectorParameters;
 import org.opencv.aruco.Dictionary;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
@@ -37,6 +39,9 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
     private CameraBridgeViewBase mOpenCvCameraView;
     private boolean  mIsJavaCamera = true;
     private MenuItem mItemSwitchCamera = null;
+    Mat frame;
+    Mat frameF;
+    Mat frameT;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -99,15 +104,19 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
     }
 
     public void onCameraViewStarted(int width, int height) {
+
+        frame = new Mat(height, width, CvType.CV_8UC4);
+        frameF = new Mat(height, width, CvType.CV_8UC4);
+        frameT = new Mat(width, width, CvType.CV_8UC4);
+
     }
 
     public void onCameraViewStopped() {
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        Mat frame = inputFrame.rgba();
+        frame = inputFrame.rgba();
         Mat frameCopy = new Mat();
-
         frame.copyTo(frameCopy);
         Imgproc.cvtColor(frame,frame,Imgproc.COLOR_RGBA2GRAY);
         Imgproc.cvtColor(frameCopy,frameCopy,Imgproc.COLOR_RGBA2RGB);
@@ -124,29 +133,6 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
             return warped;
 
         }
-        /*if(markerCorners.size() == 4) {
-            warper.setCorners(markerCorners);
-            Log.i("MArkercorners SiZeeeee--------", String.valueOf(markerCorners.size()));
-            Log.i("CORNER PIXEL SIZE_Width", String.valueOf(markerCorners.get(0).size().width));
-            Log.i("CORNER PIXEL SIZE_Height", String.valueOf(markerCorners.get(0).size().height));
-            warper.getMarkerCenters();
-            for (int i = 0; i < markerCorners.get(0).size().height; i++) {
-                for (int j = 0; j < markerCorners.get(0).size().width; j++) {
-                    Log.i("CORNERIIIIIIIIII--------", String.valueOf(i));
-                    Log.i("CORNERJJJJJJJJJJJ---------", String.valueOf(j));
-                    double[] a = markerCorners.get(0).get(i,j);
-                    for (double numb : a) {
-                        Log.i("CORNERS -----", String.valueOf(numb) + String.valueOf(j));
-                    }
-
-                }
-            }
-        }
-        */
-       // Aruco.drawDetectedMarkers(frameCopy, markerCorners);
-
-
-
         return frameCopy;
     }
 }

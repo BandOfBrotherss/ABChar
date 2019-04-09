@@ -31,9 +31,9 @@ public class AddChildActivity extends AppCompatActivity {
 
         Map<String, Object> user = new HashMap<>();
         user.put("age", 10);
-        user.put("name", "ibok");
+        user.put("name", "Furkan");
         user.put("parentid" , currentUser.getUid());
-        user.put("usageTime", 2);
+        user.put("usageTime", 0);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Children")

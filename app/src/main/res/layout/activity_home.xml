@@ -6,24 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".ScreenActivities.HomeActivity">
 
-    <TableRow
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <ImageButton
             android:id="@+id/parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="200dp"
             android:contentDescription="@string/desc_parent"
             app:srcCompat="@drawable/parent" />
 
         <ImageButton
             android:id="@+id/child"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="200dp"
+            android:layout_toEndOf="@id/parent"
             android:contentDescription="@string/desc_child"
             app:srcCompat="@drawable/child" />
 
-    </TableRow>
+        <TextView
+            android:id="@+id/child_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/child"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/parent"
+            android:gravity="center"
+            android:text="Child"
+            android:textColor="@color/browser_actions_text_color"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/parent"
+            android:layout_marginStart="30dp"
+            android:layout_toLeftOf="@id/child_text"
+            android:gravity="center"
+            android:text="Parent"
+            android:textColor="@color/browser_actions_text_color"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
