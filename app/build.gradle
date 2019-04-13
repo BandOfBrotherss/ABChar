@@ -13,7 +13,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resValue 'string', "fb_login_protocol", ABChar_fb_login_protocol
-        resValue 'string', "fb_app_id", ABChar_fb_app_id
+        resValue 'string', "facebook_app_id", ABChar_fb_app_id
         resValue 'string', "tt_consumer_key", ABChar_twitter_consumer_key
         resValue 'string', "tt_consumer_secret" , ABChar_twitter_consumer_secret
         ndk {

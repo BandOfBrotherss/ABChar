@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-
+<!--
     <string name="facebook_app_id" >@string/fb_app_id</string>
     <string name="fb_login_protocol_scheme">@string/fb_login_protocol</string>
 
-    <!--
+    &lt;!&ndash;
       Your Twitter Key and Secret, see README.
-    -->
-    <!-- TODO(developer): REPLACE -->
+    &ndash;&gt;
+    &lt;!&ndash; TODO(developer): REPLACE &ndash;&gt;
     <string name="twitter_consumer_key">@string/tt_consumer_key</string>
-    <string name="twitter_consumer_secret">@string/tt_consumer_secret</string>
+    <string name="twitter_consumer_secret">@string/tt_consumer_secret</string>-->
 </resources>

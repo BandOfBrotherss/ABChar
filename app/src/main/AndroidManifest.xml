@@ -57,6 +57,8 @@
         <activity android:name=".LoginActivities.GoogleSignInActivity" />
         <activity android:name=".LoginActivities.BaseActivity" />
         <activity android:name=".LoginActivities.TwitterLoginActivity" />
+        <activity android:name=".LoginActivities.FacebookLoginActivity" />
+        <activity android:name=".LoginActivities.FirebaseUIActivity" />
     </application>
 
 </manifest>

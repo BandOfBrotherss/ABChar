@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.abchar.LoginActivities.EmailPasswordActivity;
 import com.example.abchar.LoginActivities.FacebookLoginActivity;
+import com.example.abchar.LoginActivities.FirebaseUIActivity;
 import com.example.abchar.LoginActivities.GoogleSignInActivity;
 import com.example.abchar.LoginActivities.TwitterLoginActivity;
 import com.example.abchar.R;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                 Intent i = new Intent(MainActivity.this, FacebookLoginActivity.class);
+                 Intent i = new Intent(MainActivity.this, FirebaseUIActivity.class);
                  startActivity(i);
 
             }
