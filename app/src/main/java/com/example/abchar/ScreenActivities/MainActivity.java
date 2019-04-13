@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseApp.initializeApp(this);
+        Intent i = new Intent(MainActivity.this, FirebaseUIActivity.class);
+        startActivity(i);
+/*        FirebaseApp.initializeApp(this);
         final ImageButton face_button = findViewById(R.id.facebook_button);
         final ImageButton twitter_button = findViewById(R.id.twitter_button);
         final ImageButton google_button = findViewById(R.id.google_button);
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-       // checkCurrentUser();
+       // checkCurrentUser();*/
 
     }
 
