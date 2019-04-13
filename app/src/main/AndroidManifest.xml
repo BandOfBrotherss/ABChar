@@ -53,10 +53,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivities.ChooserActivity" />
         <activity android:name=".LoginActivities.EmailPasswordActivity" />
         <activity android:name=".LoginActivities.GoogleSignInActivity" />
-        <activity android:name=".LoginActivities.PhoneAuthActivity" />
         <activity android:name=".LoginActivities.BaseActivity" />
         <activity android:name=".LoginActivities.TwitterLoginActivity" />
     </application>
