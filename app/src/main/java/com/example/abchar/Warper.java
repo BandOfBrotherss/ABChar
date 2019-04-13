@@ -41,7 +41,7 @@ public class Warper {
         Imgproc.warpPerspective(src,dst,M,size);
         Mat resized = new Mat(height,width,CV_32FC2);
         Imgproc.resize(dst,resized,new Size(width,height));
-        Imgproc.cvtColor(resized,resized,Imgproc.COLOR_GRAY2RGBA);
+        //Imgproc.cvtColor(resized,resized,Imgproc.COLOR_GRAY2RGBA);
 
         return resized;
     }

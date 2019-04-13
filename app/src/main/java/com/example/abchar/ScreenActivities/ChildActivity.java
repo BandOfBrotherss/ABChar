@@ -128,7 +128,7 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
         Warper warper = new Warper();
         if(markerCorners.size() == 4){
             warper.setCorners(markerCorners);
-            Mat warped = warper.warp(frame,1024,768);
+            Mat warped = warper.warp(frameCopy,1024,768);
             Imgproc.resize(warped, warped ,frame.size());
             return warped;
 

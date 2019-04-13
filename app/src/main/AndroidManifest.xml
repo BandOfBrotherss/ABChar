@@ -24,6 +24,7 @@
         <activity android:name=".ScreenActivities.ChildActivity" />
         <activity android:name=".ScreenActivities.HomeActivity" />
 
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
@@ -57,6 +58,7 @@
         <activity android:name=".LoginActivities.GoogleSignInActivity" />
         <activity android:name=".LoginActivities.PhoneAuthActivity" />
         <activity android:name=".LoginActivities.BaseActivity" />
+        <activity android:name=".LoginActivities.TwitterLoginActivity" />
     </application>
 
 </manifest>
