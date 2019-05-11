@@ -59,6 +59,7 @@
         <activity android:name=".LoginActivities.TwitterLoginActivity" />
         <activity android:name=".LoginActivities.FacebookLoginActivity" />
         <activity android:name=".LoginActivities.FirebaseUIActivity" />
+        <activity android:name=".TrainActivity"/>
     </application>
 
 </manifest>

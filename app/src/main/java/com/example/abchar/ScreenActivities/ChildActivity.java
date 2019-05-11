@@ -1,26 +1,24 @@
 package com.example.abchar.ScreenActivities;
 
-import android.graphics.Canvas;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import com.example.abchar.R;
+import com.example.abchar.TrainActivity;
 import com.example.abchar.Warper;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.aruco.Aruco;
 import org.opencv.aruco.DetectorParameters;
 import org.opencv.aruco.Dictionary;
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
@@ -28,9 +26,6 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
-import static org.opencv.core.CvType.CV_8UC1;
 
 public class ChildActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
@@ -128,9 +123,13 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
         Warper warper = new Warper();
         if(markerCorners.size() == 4){
             warper.setCorners(markerCorners);
-            Mat warped = warper.warp(frameCopy,1024,768);
-            Imgproc.resize(warped, warped ,frame.size());
-            return warped;
+            Mat warped = warper.warp(frameCopy,128,128);
+            //Imgproc.resize(warped, warped ,frame.size());
+            long img_addr = warped.getNativeObjAddr();
+            Intent camera = new Intent(ChildActivity.this, TrainActivity.class);
+            camera.putExtra("MyImg", img_addr);
+            startActivity(camera);
+            //return warped;
 
         }
         return frameCopy;
