@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.example.abchar.ChildAdapter;
 import com.example.abchar.R;
+import com.example.abchar.TrainTestChooseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                             dialogBuilder.setItems(Children, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent i = new Intent(HomeActivity.this, ChildActivity.class);
+                                    Intent i = new Intent(HomeActivity.this, TrainTestChooseActivity.class);
                                     startActivity(i);
                                 }
                             });

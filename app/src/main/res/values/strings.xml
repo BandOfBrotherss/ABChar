@@ -92,7 +92,7 @@
     <string name="desc_child">Child</string>
 
 
-    <string name="facebook_application_id" >@string/facebook_app_id</string>
+    <string name="facebook_application_id">@string/facebook_app_id</string>
     <string name="fb_login_protocol_scheme">@string/fb_login_protocol</string>
 
     <string name="twitter_consumer_key">@string/tt_consumer_key</string>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <Button
+        android:id="@+id/trainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="train"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/trainButton"
+        android:layout_marginBottom="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/round_button"
+        android:text="Test" />
+
+
+    </RelativeLayout>

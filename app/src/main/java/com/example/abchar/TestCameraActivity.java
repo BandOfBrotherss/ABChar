@@ -1,4 +1,4 @@
-package com.example.abchar.ScreenActivities;
+package com.example.abchar;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +27,7 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChildActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class TestCameraActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     private static final String TAG = "OCVSample::Activity";
 
@@ -61,7 +61,7 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        setContentView(R.layout.activity_child);
+        setContentView(R.layout.activity_train_camera);
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
 
@@ -126,8 +126,11 @@ public class ChildActivity extends AppCompatActivity implements CameraBridgeView
             Mat warped = warper.warp(frameCopy,128,128);
             //Imgproc.resize(warped, warped ,frame.size());
             long img_addr = warped.getNativeObjAddr();
-            Intent camera = new Intent(ChildActivity.this, TrainActivity.class);
+            Intent camera = new Intent(TestCameraActivity.this, TestChild.class);
+            Intent questionIntent = getIntent();
+            String question = questionIntent.getStringExtra("question");
             camera.putExtra("MyImg", img_addr);
+            camera.putExtra("question", question);
             startActivity(camera);
             //return warped;
 

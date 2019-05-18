@@ -7,15 +7,20 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.abchar.ImageClassifier;
 import com.example.abchar.MobNetClassifier;
+import com.example.abchar.ScreenActivities.TrainCameraActivity;
 import com.google.zxing.common.StringUtils;
 
 import org.opencv.android.Utils;
@@ -31,22 +36,44 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.opencensus.internal.StringUtil;
 
-public class TrainActivity extends AppCompatActivity {
+public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+    private TextToSpeech tts;
+    private ImageClassifier classifier;
+    private TextView info, definition;
+    private ImageView image;
+    private Button continueButton;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.train_child);
+
+        tts = new TextToSpeech(this, this);
+        info = (TextView)findViewById(R.id.informationView);
+        definition = (TextView)findViewById(R.id.characterDefinition);
+        image =(ImageView)findViewById(R.id.imageView);
+        continueButton= (Button)findViewById(R.id.continueButton);
+        continueButton.setEnabled(false);
         try {
             classify();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TrainActivity.this, TrainCameraActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
-    private ImageClassifier classifier;
+
 
     public void classify() throws IOException {
 
@@ -84,62 +111,42 @@ public class TrainActivity extends AppCompatActivity {
         return bmp;
     }
 
-    private String saveToInternalStorage(Bitmap bitmapImage){
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
-        File directory = cw.getDir("train_data", Context.MODE_PRIVATE);
-        // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath();
-    }
+
 
     private void setContents(String result){
-        TextView info = (TextView)findViewById(R.id.informationView);
-        TextView definition = (TextView)findViewById(R.id.characterDefinition);
-        ImageView image =(ImageView)findViewById(R.id.imageView);
+        String definitionText;
+        String infoText;
+
+
 
         HashMap<String, String> characterMap = setCharacterMap();
         HashMap<String,Drawable> drawableMap = setDrawableMap();
         if (isNumeric(result)){
-
-           definition.setText("This is -> " + result);
-           info.setText("There are " + result + " finger(s) above!");
+           definitionText =  "This is :" + result;
+           infoText = "There are " + result + " finger(s) above!";
 
        }
        else{
-           definition.setText("This is -> " + result);
-           info.setText(characterMap.get(result));
+           definitionText = "This is : " + result;
+           infoText = characterMap.get(result);
 
        }
-
-       image.setImageDrawable(drawableMap.get(result));
+        definition.setText(definitionText);
+        info.setText(infoText);
+        image.setImageDrawable(drawableMap.get(result));
 
 
     }
 
     private HashMap <String, String> setCharacterMap(){
         HashMap<String, String> infos = new HashMap<String, String>();
-        ArrayList <String> outputs= new ArrayList<String>();
-        infos.put("a", "There is an apple above, apple starts with an 'A'!");
-        infos.put("b", "There is a bird above, bird starts with a 'B'!");
-        infos.put("c", "There is a cat above, cat starts with 'C'!");
-        infos.put("d", "There is a dog above, dog starts with 'D'!");
-        infos.put("e", "There is an elephant above, elephant starts with 'E'!");
+
+        infos.put("A", "There is an apple above, apple starts with an 'A'!");
+        infos.put("B", "There is a bird above, bird starts with a 'B'!");
+        infos.put("C", "There is a cat above, cat starts with 'C'!");
+        infos.put("D", "There is a dog above, dog starts with 'D'!");
+        infos.put("E", "There is an elephant above, elephant starts with 'E'!");
         return infos;
 
     }
@@ -158,11 +165,11 @@ public class TrainActivity extends AppCompatActivity {
         Drawable two =getResources().getDrawable(R.drawable.two);
         Drawable three =getResources().getDrawable(R.drawable.three);
         Drawable four =getResources().getDrawable(R.drawable.four);
-        drawableMap.put("a",a);
-        drawableMap.put("b",b);
-        drawableMap.put("c",c);
-        drawableMap.put("d",d);
-        drawableMap.put("e",e);
+        drawableMap.put("A",a);
+        drawableMap.put("B",b);
+        drawableMap.put("C",c);
+        drawableMap.put("D",d);
+        drawableMap.put("E",e);
         drawableMap.put("0",zero);
         drawableMap.put("1",one);
         drawableMap.put("2",two);
@@ -179,5 +186,34 @@ public class TrainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = tts.setLanguage(Locale.US);
+            tts.setSpeechRate(0.7f);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "This Language is not supported");
+            } else {
+                speakOut();
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!");
+        }
+        continueButton.setEnabled(true);
+
+    }
+    public void speakOut(){
+        String information = info.getText().toString();
+        String definitionString  = definition.getText().toString();
+        tts.speak(definitionString, TextToSpeech.QUEUE_FLUSH, null);
+        tts.speak(information, TextToSpeech.QUEUE_ADD, null);
+
+
     }
 }

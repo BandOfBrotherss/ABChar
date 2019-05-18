@@ -15,9 +15,9 @@ android {
         resValue 'string', "fb_login_protocol", ABChar_fb_login_protocol
         resValue 'string', "facebook_app_id", ABChar_fb_app_id
         resValue 'string', "tt_consumer_key", ABChar_twitter_consumer_key
-        resValue 'string', "tt_consumer_secret" , ABChar_twitter_consumer_secret
+        resValue 'string', "tt_consumer_secret", ABChar_twitter_consumer_secret
         ndk {
-            abiFilters "armeabi-v7a" , "x86"
+            abiFilters "armeabi-v7a", "x86"
         }
 
         aaptOptions {
@@ -33,7 +33,7 @@ android {
             resValue 'string', "fb_login_protocol", ABChar_fb_login_protocol
             resValue 'string', "fb_app_id", ABChar_fb_app_id
             resValue 'string', "tt_consumer_key", ABChar_twitter_consumer_key
-            resValue 'string', "tt_consumer_secret" , ABChar_twitter_consumer_secret
+            resValue 'string', "tt_consumer_secret", ABChar_twitter_consumer_secret
 
         }
     }
@@ -88,3 +88,19 @@ dependencies {
 
 
 apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
