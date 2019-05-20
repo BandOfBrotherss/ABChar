@@ -1,4 +1,4 @@
-package com.example.abchar.ScreenActivities;
+package com.example.abchar.TrainTestActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import com.example.abchar.R;
-import com.example.abchar.TrainActivity;
 import com.example.abchar.Warper;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -37,6 +36,7 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     Mat frame;
     Mat frameF;
     Mat frameT;
+    private String childId;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -59,6 +59,8 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
+
+        childId = getIntent().getStringExtra("childId");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_train_camera);
@@ -69,6 +71,14 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
 
 
         mOpenCvCameraView.setCvCameraViewListener(this);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, TrainTestChooseActivity.class);
+        intent.putExtra("childId",childId);
+        startActivity(intent);
     }
 
     @Override
@@ -128,6 +138,7 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
             long img_addr = warped.getNativeObjAddr();
             Intent camera = new Intent(TrainCameraActivity.this, TrainActivity.class);
             camera.putExtra("MyImg", img_addr);
+            camera.putExtra("childId", childId);
             startActivity(camera);
             //return warped;
 

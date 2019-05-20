@@ -1,4 +1,4 @@
-package com.example.abchar;
+package com.example.abchar.TrainTestActivities;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;

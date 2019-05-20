@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import com.example.abchar.ChildAdapter;
 import com.example.abchar.R;
-import com.example.abchar.TrainTestChooseActivity;
+import com.example.abchar.TrainTestActivities.TrainTestChooseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +36,10 @@ public class HomeActivity extends AppCompatActivity {
     private CollectionReference childRef = db.collection("Children");
     ChildAdapter adapter;
     private List<String> childrenNames;
+    private List<String> childrenIDs;
     private ArrayAdapter<String> childAdapter;
     ListView dialogList;
     Dialog dialog;
-
 
 
     @Override
@@ -62,33 +62,25 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                childrenNames =  new ArrayList<>();
+                childrenNames = new ArrayList<>();
+                childrenIDs = new ArrayList<>();
                 getChildren();
-
-                Log.i("Childrennn", String.valueOf(childrenNames.size()));
-
-
-
-
-
-
-
             }
         });
     }
 
     private void getChildren() {
-
-
-                childRef.whereEqualTo("parentid", currentUser.getUid())
+        childRef.whereEqualTo("parentid", currentUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
                                 childrenNames.add(document.getString("name"));
-                                Log.d("sss", document.getId() + " => " + document.getData());
+                                childrenIDs.add(document.getId());
+                                Log.d("sss", childrenIDs.get(0) + " => " + document.getData());
                             }
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HomeActivity.this);
                             dialogBuilder.setTitle("Select User");
@@ -96,7 +88,9 @@ public class HomeActivity extends AppCompatActivity {
                             dialogBuilder.setItems(Children, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Log.d("WHICH", String.valueOf(which));
                                     Intent i = new Intent(HomeActivity.this, TrainTestChooseActivity.class);
+                                    i.putExtra("childId", childrenIDs.get(which));
                                     startActivity(i);
                                 }
                             });
@@ -107,22 +101,5 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-        /*Query query = childRef.whereEqualTo("parentid", currentUser.getUid());
-
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                childrenNames.clear();
-                for(DocumentSnapshot snapshot : queryDocumentSnapshots){
-                    childrenNames.add(snapshot.getString("name"));
-                    Log.i("Childddd", String.valueOf(childrenNames.size()));
-
-                }
-
-            }
-        });*/
     }
-
-
 }

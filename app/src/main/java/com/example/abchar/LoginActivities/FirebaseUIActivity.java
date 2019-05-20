@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import com.example.abchar.R;
 import com.example.abchar.ScreenActivities.HomeActivity;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +35,23 @@ public class FirebaseUIActivity extends AppCompatActivity {
 
         createSignInIntent();
 
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Log.d("MAIN_FIRE", String.valueOf(keyCode));
+            return true;
+        }
+
+        Log.d("MAIN_FIRE", String.valueOf(keyCode));
+        return super.onKeyDown(keyCode, event);
     }
 
     public void createSignInIntent() {
@@ -71,10 +91,9 @@ public class FirebaseUIActivity extends AppCompatActivity {
 
                 // ...
             } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+                Intent i = new Intent(FirebaseUIActivity.this, FirebaseUIActivity.class);
+                startActivity(i);
+                finish();
             }
         }
     }

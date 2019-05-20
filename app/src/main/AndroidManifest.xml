@@ -26,13 +26,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestQuestion"></activity>
-        <activity android:name=".TestCameraActivity" />
-        <activity android:name=".TestChild" />
-        <activity android:name=".TrainTestChooseActivity" />
+        <activity android:name=".TrainTestActivities.TestQuestion"></activity>
+        <activity android:name=".TrainTestActivities.TestCameraActivity" />
+        <activity android:name=".TrainTestActivities.TestChild" />
+        <activity android:name=".TrainTestActivities.TrainTestChooseActivity" />
         <activity android:name=".ScreenActivities.ParentActivity" />
         <activity android:name=".ScreenActivities.AddChildActivity" />
-        <activity android:name=".ScreenActivities.TrainCameraActivity" />
+        <activity android:name=".TrainTestActivities.TrainCameraActivity" />
         <activity android:name=".ScreenActivities.HomeActivity" />
 
         <meta-data
@@ -56,10 +56,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScreenActivities.MainActivity">
+        <activity android:name=".LoginActivities.FirebaseUIActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -68,8 +67,7 @@
         <activity android:name=".LoginActivities.BaseActivity" />
         <activity android:name=".LoginActivities.TwitterLoginActivity" />
         <activity android:name=".LoginActivities.FacebookLoginActivity" />
-        <activity android:name=".LoginActivities.FirebaseUIActivity" />
-        <activity android:name=".TrainActivity" />
+        <activity android:name=".TrainTestActivities.TrainActivity" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
-package com.example.abchar;
+package com.example.abchar.TrainTestActivities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +10,13 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import com.example.abchar.R;
-import com.example.abchar.TrainActivity;
 import com.example.abchar.Warper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -37,6 +43,9 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
     Mat frame;
     Mat frameF;
     Mat frameT;
+    private String childId, name;
+    private int successTest, failTest;
+    private FirebaseFirestore db;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -59,6 +68,11 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
+        db = FirebaseFirestore.getInstance();
+        childId = getIntent().getStringExtra("childId");
+
+        getTrainingCounts();
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_train_camera);
@@ -91,6 +105,31 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
     }
+
+    private void getTrainingCounts() {
+       DocumentReference docRef = db.collection("Children").document(childId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    successTest = document.getLong("succesTrials").intValue();
+                    failTest = document.getLong("failTrials").intValue();
+                    name = document.getString("name");
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+    }
+
 
     public void onDestroy() {
         super.onDestroy();
@@ -131,6 +170,10 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
             String question = questionIntent.getStringExtra("question");
             camera.putExtra("MyImg", img_addr);
             camera.putExtra("question", question);
+            camera.putExtra("childId", childId);
+            camera.putExtra("successTest", successTest);
+            camera.putExtra("failTest", failTest);
+
             startActivity(camera);
             //return warped;
 

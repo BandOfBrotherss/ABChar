@@ -1,8 +1,8 @@
-package com.example.abchar;
+package com.example.abchar.TrainTestActivities;
 
 import android.app.Activity;
 
-import com.example.abchar.ImageClassifier;
+import com.example.abchar.TrainTestActivities.ImageClassifier;
 
 import java.io.IOException;
 
