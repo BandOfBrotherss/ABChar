@@ -68,6 +68,7 @@
         <activity android:name=".LoginActivities.TwitterLoginActivity" />
         <activity android:name=".LoginActivities.FacebookLoginActivity" />
         <activity android:name=".TrainTestActivities.TrainActivity" />
+        <activity android:name=".ScreenActivities.ChildInfo" />
     </application>
 
 </manifest>

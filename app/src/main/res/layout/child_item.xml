@@ -24,38 +24,59 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
         
         <TextView
-            android:id="@+id/text_view_age"
+            android:id="@+id/text_view_fail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Age : "
+            android:text="Fail Trıals : "
             android:layout_below="@id/text_view_title"
-            android:layout_toStartOf="@id/age_numb"
+            android:layout_toStartOf="@id/fail_numb"
             />
 
         <TextView
-            android:id="@+id/age_numb"
+            android:id="@+id/fail_numb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/text_view_title"
-            android:text="Age_Numb"/>
+            android:text=" Fail"
+            android:textColor="@color/tw__composer_red"
+            android:textStyle="bold"/>
         
         <TextView
-            android:id="@+id/text_usage"
+            android:id="@+id/text_view_true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="Usage Time :"
+            android:text="True Trials :"
             android:layout_below="@id/text_view_title"
             />
 
         <TextView
-            android:id="@+id/usage_time"
+            android:id="@+id/true_numb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
-            android:text=" Time"
-            android:layout_toRightOf="@id/text_usage"/>
+            android:text=" True"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/text_view_true"/>
+
+        <TextView
+            android:id="@+id/train_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Train Counts :"
+            />
+
+        <TextView
+            android:id="@+id/train_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/train_text"
+            android:text="Count "
+            android:textStyle="bold"/>
 
 
     </RelativeLayout>
