@@ -39,23 +39,28 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
     private ConstraintLayout layoutt;
     private Button tryThisLetterAgain;
     private Button quizAgain;
-    private String question;
-    private String childId, name;
+    private String question,key;
+    private String childId, childName;
     private int successTest, failTest, successNow, failNow;
     private String TAG;
     private FirebaseFirestore db;
     private DocumentReference docRef;
+    private Integer right, fail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent i = getIntent();
         childId = i.getStringExtra("childId");
-        Log.d("TESTTEST", childId);
+
         TAG = "TEST_CHILD";
         db = FirebaseFirestore.getInstance();
         docRef = db.collection("Children").document(childId);
 
         successTest = getIntent().getIntExtra("successTest", -1);
         failTest = getIntent().getIntExtra("failTest",-1);
+        right = getIntent().getIntExtra("right", -1);
+        fail = getIntent().getIntExtra("fail", -1);
+
+        Log.d(TAG, String.valueOf(right));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_child);
 
@@ -84,6 +89,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
             public void onClick(View v) {
                 Intent i = new Intent(TestChild.this, TestQuestion.class);
                 i.putExtra("childId", childId);
+                i.putExtra("name", childName);
                 startActivity(i);
             }
         });
@@ -94,6 +100,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
                 Intent i = new Intent(TestChild.this, TestCameraActivity.class);
                 i.putExtra("question", question);
                 i.putExtra("childId", childId);
+                i.putExtra("name", childName);
                 startActivity(i);
             }
         });
@@ -108,6 +115,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
     {
         Intent intent = new Intent(this, TrainTestChooseActivity.class);
         intent.putExtra("childId",childId);
+        intent.putExtra("name", childName);
         startActivity(intent);
     }
 
@@ -138,34 +146,6 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
         return bmp;
     }
 
-    private void getTrainingCounts() {
-        docRef = db.collection("Children").document(childId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    successTest = document.getLong("succesTrials").intValue();
-                    failTest = document.getLong("failTrials").intValue();
-                    name = document.getString("name");
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-
-
-    }
-    private void update() {
-        docRef.update("succesTrials", successNow + successTest);
-        docRef.update("failTrials", failNow + failTest);
-    }
-
 
     public void classifyAndSetContents() throws IOException {
 
@@ -176,9 +156,8 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
         String result = classifier.classifyFrame(bitmapImg);
         question = intent.getStringExtra("question");
         if (question.equals(result)) {
-            //Log.d(TAG, String.valueOf(successTest));
-            //successNow = 1;
-            docRef.update("succesTrials", successTest + 1)
+            key = question + "_T";
+            docRef.update("succesTrials", successTest + 1, "true_false." + key, right + 1)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -196,9 +175,8 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
 
         }
         if (!question.equals(result)) {
-            //Log.d(TAG, String.valueOf(failTest) + "fafaffafa");
-            //failNow = 1;
-            docRef.update("failTrials", failTest + 1)
+            key = question + "_F";
+            docRef.update("failTrials", failTest + 1,"true_false." + key, fail + 1)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

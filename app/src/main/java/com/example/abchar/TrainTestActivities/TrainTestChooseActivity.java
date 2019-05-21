@@ -1,6 +1,7 @@
 package com.example.abchar.TrainTestActivities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,10 +9,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.abchar.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TrainTestChooseActivity extends AppCompatActivity {
 
-    private String childrenID;
+    private String childrenID, childName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,7 @@ public class TrainTestChooseActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         childrenID = i.getStringExtra("childId");
+        childName = i.getStringExtra("name");
         Log.d("MESSAGE", childrenID);
         Button trainButton = (Button) findViewById(R.id.trainButton);
         trainButton.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +45,12 @@ public class TrainTestChooseActivity extends AppCompatActivity {
         });
     }
 
+
     public void trainMode(){
 
         Intent i = new Intent(TrainTestChooseActivity.this, TrainCameraActivity.class);
         i.putExtra("childId", childrenID);
+        i.putExtra("name", childName);
         startActivity(i);
 
     }
@@ -49,6 +58,7 @@ public class TrainTestChooseActivity extends AppCompatActivity {
     public void testMode(){
         Intent i = new Intent(TrainTestChooseActivity.this, TestQuestion.class);
         i.putExtra("childId", childrenID);
+        i.putExtra("name", childName);
         startActivity(i);
 
     }
