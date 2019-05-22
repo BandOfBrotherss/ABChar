@@ -47,7 +47,7 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
         TAG = "TEST_QUESTION";
         childId = getIntent().getStringExtra("childId");
         childName = getIntent().getStringExtra("name");
-        final String questionLabel = setQuestion();
+
 
 
         Button startTestButton = (Button) findViewById(R.id.StartTest);
@@ -62,6 +62,12 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
         Button listenAgain = (Button) findViewById(R.id.ListenAgain);
+        listenAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakOut();
+            }
+        });
 
     }
 
@@ -123,6 +129,7 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
         String commands = question.getText().toString();
         String letterString = "Show me: " + questionLabel;
         tts.speak(commands, TextToSpeech.QUEUE_FLUSH, null);
+        tts.speak(letterString, TextToSpeech.QUEUE_ADD, null);
 
 
     }
