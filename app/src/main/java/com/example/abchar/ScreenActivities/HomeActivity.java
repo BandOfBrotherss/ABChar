@@ -91,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
                                     Log.d("WHICH", String.valueOf(which));
                                     Intent i = new Intent(HomeActivity.this, TrainTestChooseActivity.class);
                                     i.putExtra("childId", childrenIDs.get(which));
+                                    i.putExtra("name", childrenNames.get(which));
                                     startActivity(i);
                                 }
                             });

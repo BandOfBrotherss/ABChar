@@ -35,7 +35,7 @@ import java.util.List;
 
 public class TestCameraActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
-    private static final String TAG = "OCVSample::Activity";
+    private static final String TAG = "TEST_CAMERA_ACT";
 
     private CameraBridgeViewBase mOpenCvCameraView;
     private boolean  mIsJavaCamera = true;
@@ -43,9 +43,10 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
     Mat frame;
     Mat frameF;
     Mat frameT;
-    private String childId, name;
+    private String childId, childName, question;
     private int successTest, failTest;
     private FirebaseFirestore db;
+    private Integer right, fail;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -70,6 +71,9 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
         childId = getIntent().getStringExtra("childId");
+        childName = getIntent().getStringExtra("name");
+        Intent questionIntent = getIntent();
+        question = questionIntent.getStringExtra("question");
 
         getTrainingCounts();
 
@@ -84,6 +88,17 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
 
         mOpenCvCameraView.setCvCameraViewListener(this);
     }
+
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, TrainTestChooseActivity.class);
+        intent.putExtra("childId",childId);
+        intent.putExtra("name", childName);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onPause()
@@ -115,7 +130,8 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
                     DocumentSnapshot document = task.getResult();
                     successTest = document.getLong("succesTrials").intValue();
                     failTest = document.getLong("failTrials").intValue();
-                    name = document.getString("name");
+                    right = (Integer) document.getLong("true_false." + question + "_T").intValue();
+                    fail = (Integer) document.getLong("true_false." + question + "_F").intValue();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -166,13 +182,15 @@ public class TestCameraActivity extends AppCompatActivity implements CameraBridg
             //Imgproc.resize(warped, warped ,frame.size());
             long img_addr = warped.getNativeObjAddr();
             Intent camera = new Intent(TestCameraActivity.this, TestChild.class);
-            Intent questionIntent = getIntent();
-            String question = questionIntent.getStringExtra("question");
+
             camera.putExtra("MyImg", img_addr);
             camera.putExtra("question", question);
             camera.putExtra("childId", childId);
+            camera.putExtra("name", childName);
             camera.putExtra("successTest", successTest);
             camera.putExtra("failTest", failTest);
+            camera.putExtra("right", right);
+            camera.putExtra("fail",fail);
 
             startActivity(camera);
             //return warped;

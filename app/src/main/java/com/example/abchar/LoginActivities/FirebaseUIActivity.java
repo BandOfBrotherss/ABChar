@@ -4,6 +4,7 @@ package com.example.abchar.LoginActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,7 +32,18 @@ public class FirebaseUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_firebase_ui);
+        setContentView(R.layout.start_splash);
+
+        new CountDownTimer(5000,1000){
+            @Override
+            public void onTick(long millisUntilFinished){}
+
+            @Override
+            public void onFinish(){
+                //set the new Content of your activity
+                FirebaseUIActivity.this.setContentView(R.layout.activity_firebase_ui);
+            }
+        }.start();
 
         createSignInIntent();
 
@@ -67,6 +79,8 @@ public class FirebaseUIActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setTheme(R.style.LoginTheme)
+                        .setLogo(R.drawable.logo_stater)
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);

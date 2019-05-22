@@ -1,7 +1,9 @@
 package com.example.abchar.TrainTestActivities;
 
 import android.content.Intent;
+
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.abchar.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -17,10 +24,14 @@ import java.util.Random;
 
 public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
+
     private String childId;
     private TextToSpeech tts;
     private String questionLabel;
     private TextView question;
+
+    private String  childName, TAG;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +41,14 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
         tts = new TextToSpeech(this, this);
         question = (TextView) findViewById(R.id.questionLetterInfo);
 
-        childId = getIntent().getStringExtra("childId");
-
         questionLabel = setQuestion();
+        db = FirebaseFirestore.getInstance();
+
+        TAG = "TEST_QUESTION";
+        childId = getIntent().getStringExtra("childId");
+        childName = getIntent().getStringExtra("name");
+        final String questionLabel = setQuestion();
+
 
         Button startTestButton = (Button) findViewById(R.id.StartTest);
         startTestButton.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +57,7 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
                 Intent i = new Intent(TestQuestion.this, TestCameraActivity.class);
                 i.putExtra("question", questionLabel);
                 i.putExtra("childId", childId);
+                i.putExtra("name", childName);
                 startActivity(i);
             }
         });
@@ -53,8 +70,11 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
     {
         Intent intent = new Intent(this, TrainTestChooseActivity.class);
         intent.putExtra("childId",childId);
+        intent.putExtra("name", childName);
         startActivity(intent);
     }
+
+
 
     public String setQuestion(){
 

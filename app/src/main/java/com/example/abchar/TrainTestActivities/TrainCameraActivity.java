@@ -36,7 +36,7 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     Mat frame;
     Mat frameF;
     Mat frameT;
-    private String childId;
+    private String childId, childName;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -61,6 +61,7 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
         super.onCreate(savedInstanceState);
 
         childId = getIntent().getStringExtra("childId");
+        childName = getIntent().getStringExtra("name");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_train_camera);
@@ -78,6 +79,7 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     {
         Intent intent = new Intent(this, TrainTestChooseActivity.class);
         intent.putExtra("childId",childId);
+        intent.putExtra("name", childName);
         startActivity(intent);
     }
 
@@ -131,14 +133,15 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
         Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_6X6_250);
         Aruco.detectMarkers(frame, dictionary, markerCorners, markerIds, parameters);
         Warper warper = new Warper();
-        if(markerCorners.size() == 4){
+        if(markerCorners.size() == 5){
             warper.setCorners(markerCorners);
-            Mat warped = warper.warp(frameCopy,128,128);
+                Mat warped = warper.warp(frameCopy,128,128);
             //Imgproc.resize(warped, warped ,frame.size());
             long img_addr = warped.getNativeObjAddr();
             Intent camera = new Intent(TrainCameraActivity.this, TrainActivity.class);
             camera.putExtra("MyImg", img_addr);
             camera.putExtra("childId", childId);
+            camera.putExtra("name", childName);
             startActivity(camera);
             //return warped;
 

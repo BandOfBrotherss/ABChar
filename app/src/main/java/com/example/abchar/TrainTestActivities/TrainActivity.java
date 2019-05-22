@@ -40,7 +40,7 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
     private FirebaseFirestore db;
     private String TAG, childId;
     private int traincounts;
-    private String name;
+    private String childName;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
 
         Intent i = getIntent();
         childId = i.getStringExtra("childId");
+        childName = i.getStringExtra("name");
         Log.d("MESSAGE", childId);
         //getTrainingCounts();
 
@@ -70,11 +71,22 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
             public void onClick(View v) {
                 Intent i = new Intent(TrainActivity.this, TrainCameraActivity.class);
                 i.putExtra("childId", childId);
+                i.putExtra("name", childName);
                 startActivity(i);
             }
         });
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, TrainTestChooseActivity.class);
+        intent.putExtra("childId",childId);
+        intent.putExtra("name", childName);
+        startActivity(intent);
+    }
+
 
 
     private void getTrainingCounts() {
@@ -85,8 +97,6 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     traincounts = document.getLong("trainingCount").intValue();
-                    name = document.getString("name");
-
                     DocumentReference child = db.collection("Children").document(childId);
                     child.update("trainingCount", traincounts + 1);
                     if (document.exists()) {
