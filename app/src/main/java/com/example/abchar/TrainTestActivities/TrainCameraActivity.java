@@ -133,9 +133,9 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
         Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_6X6_250);
         Aruco.detectMarkers(frame, dictionary, markerCorners, markerIds, parameters);
         Warper warper = new Warper();
-        if(markerCorners.size() == 4){
+        if(markerCorners.size() == 5){
             warper.setCorners(markerCorners);
-            Mat warped = warper.warp(frameCopy,128,128);
+                Mat warped = warper.warp(frameCopy,128,128);
             //Imgproc.resize(warped, warped ,frame.size());
             long img_addr = warped.getNativeObjAddr();
             Intent camera = new Intent(TrainCameraActivity.this, TrainActivity.class);

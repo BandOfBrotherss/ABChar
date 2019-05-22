@@ -19,6 +19,7 @@
             android:layout_height="120dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="200dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/desc_parent"
             app:srcCompat="@drawable/parent" />
 
@@ -30,6 +31,7 @@
             android:layout_marginTop="200dp"
             android:layout_toEndOf="@id/parent"
             android:contentDescription="@string/desc_child"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/child" />
 
         <TextView
