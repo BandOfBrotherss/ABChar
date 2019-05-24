@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
     private ImageClassifier classifier;
     private TextView info, definition;
     private ImageView image;
-    private Button continueButton;
+    private ImageButton continueButton, testButton;
     private FirebaseFirestore db;
     private String TAG, childId;
     private int traincounts;
@@ -58,7 +59,9 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
         info = (TextView) findViewById(R.id.informationView);
         definition = (TextView) findViewById(R.id.characterDefinition);
         image = (ImageView) findViewById(R.id.imageView);
-        continueButton = (Button) findViewById(R.id.continueButton);
+        continueButton = (ImageButton) findViewById(R.id.continueButton);
+        testButton = findViewById(R.id.test_from_train);
+        testButton.setEnabled(false);
         continueButton.setEnabled(false);
         try {
             getTrainingCounts();
@@ -70,6 +73,16 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TrainActivity.this, TrainCameraActivity.class);
+                i.putExtra("childId", childId);
+                i.putExtra("name", childName);
+                startActivity(i);
+            }
+        });
+
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TrainActivity.this, TestQuestion.class);
                 i.putExtra("childId", childId);
                 i.putExtra("name", childName);
                 startActivity(i);
@@ -242,6 +255,7 @@ public class TrainActivity extends AppCompatActivity implements TextToSpeech.OnI
             Log.e("TTS", "Initilization Failed!");
         }
         continueButton.setEnabled(true);
+        testButton.setEnabled(true);
 
     }
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.abchar.R;
@@ -50,7 +51,7 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
 
 
 
-        Button startTestButton = (Button) findViewById(R.id.StartTest);
+        ImageButton startTestButton =  findViewById(R.id.StartTest);
         startTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +62,7 @@ public class TestQuestion extends AppCompatActivity implements TextToSpeech.OnIn
                 startActivity(i);
             }
         });
-        Button listenAgain = (Button) findViewById(R.id.ListenAgain);
+        ImageButton listenAgain = findViewById(R.id.ListenAgain);
         listenAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

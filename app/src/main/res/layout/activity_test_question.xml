@@ -24,21 +24,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
+        android:src="@drawable/playbutton"
         android:id="@+id/StartTest"
-        android:layout_width="87dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="352dp"
-        android:text="Start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
+        android:src="@drawable/listen_again"
         android:id="@+id/ListenAgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginTop="352dp"
         android:layout_marginEnd="88dp"
         android:background="@drawable/round_button"

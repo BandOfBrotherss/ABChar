@@ -52,37 +52,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultOfClassification" />
 
-    <Button
+    <ImageButton
         android:id="@+id/quizAgain"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/round_button"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/test"
         android:text="Quiz Again"
-        android:textColor="@color/green"
-        android:textSize="18sp"
-        app:backgroundTint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/characterDefinition" />
 
-    <Button
+    <ImageButton
+        android:src="@drawable/train_button"
         android:id="@+id/tryAgainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/round_button"
         android:text="Try This Letter Again"
-        android:textColor="@color/green"
-        android:textSize="18sp"
-        app:backgroundTint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quizAgain" />
+        app:layout_constraintTop_toBottomOf="@+id/characterDefinition"
+        app:layout_constraintLeft_toRightOf="@id/quizAgain"
+         />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,8 +38,8 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
     private ImageView imgView;
     private TextView resultView, definitionView;
     private ConstraintLayout layoutt;
-    private Button tryThisLetterAgain;
-    private Button quizAgain;
+    private ImageButton tryThisLetterAgain;
+    private ImageButton quizAgain;
     private String question,key;
     private String childId, childName;
     private int successTest, failTest, successNow, failNow;
@@ -80,7 +81,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
         }
 
 
-        quizAgain = (Button) findViewById(R.id.quizAgain);
+        quizAgain = (ImageButton) findViewById(R.id.quizAgain);
         quizAgain.setEnabled(false);
         //tryThisLetterAgain.setEnabled(false);
 
@@ -93,11 +94,11 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
                 startActivity(i);
             }
         });
-        tryThisLetterAgain = (Button) findViewById(R.id.tryAgainButton);
+        tryThisLetterAgain = (ImageButton) findViewById(R.id.tryAgainButton);
         tryThisLetterAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(TestChild.this, TestCameraActivity.class);
+                Intent i = new Intent(TestChild.this, TrainCameraActivity.class);
                 i.putExtra("question", question);
                 i.putExtra("childId", childId);
                 i.putExtra("name", childName);
@@ -204,7 +205,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
 
         resultView.setText("YOU FOUND IT RIGHT!");
         definitionView.setText("THIS IS : " + "  " + result);
-        imgView.setImageDrawable(getResources().getDrawable(R.drawable.welldone));
+        imgView.setImageDrawable(getResources().getDrawable(R.drawable.happy));
         //tryThisLetterAgain.setVisibility(View.INVISIBLE);
 
     }
@@ -215,7 +216,7 @@ public class TestChild extends AppCompatActivity implements TextToSpeech.OnInitL
         resultView.setText("TRY AGAIN!");
         layoutt.setBackgroundColor(getResources().getColor(R.color.tw__composer_red));
         definitionView.setText("THIS IS NOT: " + question + "\n" + "THIS IS: " + result);
-        imgView.setImageDrawable(getResources().getDrawable(R.drawable.tryagain));
+        imgView.setImageDrawable(getResources().getDrawable(R.drawable.sad));
         //tryThisLetterAgain.setVisibility(View.VISIBLE);
 
     }

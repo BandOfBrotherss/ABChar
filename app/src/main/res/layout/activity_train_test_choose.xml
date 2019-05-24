@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/trainButton"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="train"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/round_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
 
-    <Button
+        android:layout_centerVertical="true"
+        android:background="@drawable/round_button"
+        android:src="@drawable/train_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        tools:layout_conversion_wrapHeight="168"
+        tools:layout_conversion_wrapWidth="168" />
+
+    <ImageButton
         android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/trainButton"
-        android:layout_marginBottom="15dp"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="212dp"
+        android:layout_toEndOf="@id/trainButton"
         android:background="@drawable/round_button"
-        android:text="Test" />
+        android:src="@drawable/test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        tools:layout_conversion_wrapHeight="168"
+        tools:layout_conversion_wrapWidth="168" />
 
 
-    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

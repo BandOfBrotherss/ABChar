@@ -52,6 +52,13 @@ public class ParentActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
     private void setUpRecyclerView() {
         Query query = childRef.whereEqualTo("parentid", currentUser.getUid());
 

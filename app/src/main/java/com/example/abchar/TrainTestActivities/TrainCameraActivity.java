@@ -34,8 +34,14 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     private boolean  mIsJavaCamera = true;
     private MenuItem mItemSwitchCamera = null;
     Mat frame;
-    Mat frameF;
-    Mat frameT;
+    Mat frameCopy;
+    Mat markerIds;
+    List<Mat> markerCorners;
+    DetectorParameters parameters;
+    Dictionary dictionary;
+    Warper warper;
+
+
     private String childId, childName;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -113,8 +119,8 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
     public void onCameraViewStarted(int width, int height) {
 
         frame = new Mat(height, width, CvType.CV_8UC4);
-        frameF = new Mat(height, width, CvType.CV_8UC4);
-        frameT = new Mat(width, width, CvType.CV_8UC4);
+        dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_6X6_250);
+        warper = new Warper();
 
     }
 
@@ -123,17 +129,15 @@ public class TrainCameraActivity extends AppCompatActivity implements CameraBrid
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         frame = inputFrame.rgba();
-        Mat frameCopy = new Mat();
+        frameCopy = new Mat();
         frame.copyTo(frameCopy);
         Imgproc.cvtColor(frame,frame,Imgproc.COLOR_RGBA2GRAY);
         Imgproc.cvtColor(frameCopy,frameCopy,Imgproc.COLOR_RGBA2RGB);
-        Mat markerIds = new Mat();
-        List<Mat> markerCorners = new ArrayList<>();
-        DetectorParameters parameters = DetectorParameters.create();
-        Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_6X6_250);
+        markerIds = new Mat();
+        markerCorners = new ArrayList<>();
+        parameters = DetectorParameters.create();
         Aruco.detectMarkers(frame, dictionary, markerCorners, markerIds, parameters);
-        Warper warper = new Warper();
-        if(markerCorners.size() == 5){
+        if(markerCorners.size() == 4){
             warper.setCorners(markerCorners);
                 Mat warped = warper.warp(frameCopy,128,128);
             //Imgproc.resize(warped, warped ,frame.size());
